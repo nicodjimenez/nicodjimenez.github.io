@@ -4,7 +4,7 @@ title: Nico's blog
 description: > # this means to ignore newlines until "baseurl:"
   Coding tutorials, focusing on deep learning and machine learning in general. 
 baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://yourdomain.com" # the base hostname & protocol for your site
+url: "http://nicodjimenez.github.io" # the base hostname & protocol for your site
 #twitter_username: jekyllrb
 github_username:  nicodjimenez
 
