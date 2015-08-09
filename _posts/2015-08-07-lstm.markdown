@@ -189,5 +189,34 @@ def top_diff_is(self, top_diff_h, top_diff_s):
 
 
 # Details 
+The forward propagation equations show that modifying $s(t)$ affects the loss $L(t)$ by directly changing the values of $h(t)$ as well as $h(t+1)$.  However, modifying $s(t)$ affects $L(t+1)$ only by modifying $h(t+1)$.  Therefore, by the chain rule: 
 
-Coming soon!
+$$
+\begin{eqnarray}
+\frac{dL(t)}{ds_i(t)} &=& \frac{dL(t)}{dh_i(t)} \frac{dh_i(t)}{ds_i(t)} + \frac{dL(t)}{dh_i(t+1)} \frac{dh_i(t+1)}{ds_i(t)}  \\
+&=& \frac{dL(t)}{dh_i(t)} \frac{dh_i(t)}{ds_i(t)} + \frac{dL(t+1)}{dh_i(t+1)} \frac{dh_i(t+1)}{ds_i(t)}  \\
+&=& \frac{dL(t)}{dh_i(t)} \frac{dh_i(t)}{ds_i(t)} + \frac{dL(t+1)}{ds_i(t)}  \\
+&=& \frac{dL(t)}{dh_i(t)} \frac{dh_i(t)}{ds_i(t)} + [\texttt{top_diff_s}]_i  \\
+\end{eqnarray}
+$$
+
+Since the forward propagation equations state:
+
+$$
+h(t) = s(t) * o(t)
+$$
+
+we get that:
+
+$$
+\frac{dL(t)}{dh_i(t)} \frac{dh_i(t)}{ds_i(t)} =  o_i(t) * [\texttt{top_diff_h}]_i.
+$$
+
+Putting all this together we have:
+
+{% highlight python %}
+ds = self.state.o * top_diff_h + top_diff_s
+{% endhighlight %}
+
+
+
