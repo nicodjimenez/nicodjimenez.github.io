@@ -6,7 +6,7 @@ excerpt: "A nice post"
 date:   2014-08-08 10:00:00
 mathjax: true
 ---
-A few weeks ago I released some [code](https://github.com/nicodjimenez/lstm) on github to help people understand how LSTM's work at the implementation level.  The forward pass is well explained elsewhere and is straightforward to understand, but I derived the backprop equations myself and so the backprop code came without any explanation whatsoever.  The goal of this post is to explain the backprop part of the code. 
+A few weeks ago I released some [code](https://github.com/nicodjimenez/lstm) on github to help people understand how LSTM's work at the implementation level.  The forward pass is well explained elsewhere and is straightforward to understand, but I derived the backprop equations myself and so the backprop code came without any explanation whatsoever.  The goal of this post is to explain the so called *backpropagation through time* in the context of LSTM's. 
 
 If you feel like anything is confusing, please submit a pull request or submit an issue on Github.  I want to take the pain out of understanding LSTM's.  
 
@@ -217,6 +217,8 @@ Putting all this together we have:
 {% highlight python %}
 ds = self.state.o * top_diff_h + top_diff_s
 {% endhighlight %}
+
+The rest of the equations should be straightforward to derive, please let me know if anything is unclear.  
 
 
 
