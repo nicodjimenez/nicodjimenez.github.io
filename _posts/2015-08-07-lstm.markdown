@@ -6,9 +6,9 @@ excerpt: "A nice post"
 date:   2014-08-08 10:00:00
 mathjax: true
 ---
-A few weeks ago I released some [code](https://github.com/nicodjimenez/lstm) on github to help people understand how LSTM's work at the implementation level.  The forward pass is well explained elsewhere and is straightforward to understand, but I derived the backprop equations myself and so the backprop code came without any explanation whatsoever.  The goal of this post is to explain the so called *backpropagation through time* in the context of LSTM's. 
+A few weeks ago I released some [code](https://github.com/nicodjimenez/lstm) on Github to help people understand how LSTM's work at the implementation level.  The forward pass is well explained elsewhere and is straightforward to understand, but I derived the backprop equations myself and the backprop code came without any explanation whatsoever.  The goal of this post is to explain the so called *backpropagation through time* in the context of LSTM's. 
 
-If you feel like anything is confusing, please submit a pull request or submit an issue on Github.  I want to take the pain out of understanding LSTM's.  
+If you feel like anything is confusing, please post a comment below or submit an issue on Github.  
 
 *Note:* this post assumes you understand the forward pass of an LSTM network, as this part is relatively simple.  Please read this [great intro paper](http://arxiv.org/abs/1506.00019) if you are not familiar with this,  as it contains a very nice intro to LSTM's.  I follow the same notation as this paper so I recommend reading having the tutorial open in a separate browser tab for easy reference while reading this post.
 
@@ -34,25 +34,25 @@ $$\begin{eqnarray}
 g(t) &=& \phi(W_{g} x_c(t) + b_{g}) \\ 
 i(t) &=& \sigma(W_{i} x_c(t) + b_{i}) \\ 
 f(t) &=& \sigma(W_{f} x_c(t) + b_{f}) \\ 
-o(t) &=& \sigma(W_{o} x_c(t) + b_{o}) \\ 
+o(t) &=& \sigma(W_{o} x_c(t) + b_{o}). \\
 \end{eqnarray}$$
 
 Suppose we have a loss $l(t)$ that we wish to minimize at every time step $t$ that depends on the hidden layer $h$ and the label $y$ at the current time via a loss function $f$: 
 
 $$
-l(t) = f(h(t), y(t)).
+l(t) = f(h(t), y(t))
 $$
 
 where $f$ can be any differentiable loss function, such as the Euclidean loss:
 
 $$
-l(t) = f(h(t), y(t)) = \| h(t) - y(t) \|^2
+l(t) = f(h(t), y(t)) = \| h(t) - y(t) \|^2.
 $$
 
 Our ultimate goal in this case is to use gradient descent to minimize the loss $L$ over an entire sequence of length $T$:
 
 $$
-L = \sum_{t=1}^{T} l(t)
+L = \sum_{t=1}^{T} l(t).
 $$
 
 Let's work through the algebra of computing the loss gradient:
@@ -130,7 +130,7 @@ And computes:
   * `self.state.bottom_diff_s`  $= \frac{dL(t)}{ds(t)}$
   * `self.state.bottom_diff_h`  $= \frac{dL(t)}{dh(t-1)}$
 
-whose values will need to be progated backwards in time.  The code also adds derivatives to:
+whose values will need to be propagated backwards in time.  The code also adds derivatives to:
 
   * `self.param.wi_diff` $= \frac{dL}{dW_{i}}$
   * ... 
@@ -140,7 +140,7 @@ whose values will need to be progated backwards in time.  The code also adds der
 since recall that we must sum the derivatives from each time step: 
 
 $$
-\frac{dL}{dw} = \sum_{t = 1}^{T} \sum_{i = 1}^{M} \frac{dL(t)}{dh_i(t)}\frac{dh_i(t)}{dw} 
+\frac{dL}{dw} = \sum_{t = 1}^{T} \sum_{i = 1}^{M} \frac{dL(t)}{dh_i(t)}\frac{dh_i(t)}{dw}.
 $$
 
 Also, note that we use:
@@ -196,7 +196,7 @@ $$
 \frac{dL(t)}{ds_i(t)} &=& \frac{dL(t)}{dh_i(t)} \frac{dh_i(t)}{ds_i(t)} + \frac{dL(t)}{dh_i(t+1)} \frac{dh_i(t+1)}{ds_i(t)}  \\
 &=& \frac{dL(t)}{dh_i(t)} \frac{dh_i(t)}{ds_i(t)} + \frac{dL(t+1)}{dh_i(t+1)} \frac{dh_i(t+1)}{ds_i(t)}  \\
 &=& \frac{dL(t)}{dh_i(t)} \frac{dh_i(t)}{ds_i(t)} + \frac{dL(t+1)}{ds_i(t)}  \\
-&=& \frac{dL(t)}{dh_i(t)} \frac{dh_i(t)}{ds_i(t)} + [\texttt{top_diff_s}]_i  \\
+&=& \frac{dL(t)}{dh_i(t)} \frac{dh_i(t)}{ds_i(t)} + [\texttt{top_diff_s}]_i.  \\
 \end{eqnarray}
 $$
 
