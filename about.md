@@ -1,8 +1,8 @@
 ---
 layout: page
-title: My Blog  
+title: My Blog
 permalink: /about/
 ---
-The purpose of this blob is to provide tutorials on topics that are not well covered by other blogs on the internet.  This site is made with [Jekyll](http://jekyllrb.com/) which I highly recommend.
+My name is Nico Jimenez.  I dropped out of Stanford to create Mathpix (<https://mathpix.com>), an image processing API that processes 20 million images per month for millions of users across the globe.
 
-You can learn more about me on my [personal site](http://nicodjimenez.com/).
+I am also the creator of Losswise (<https://losswise.com>), an internal ML monitoring and analytics solution built at Mathpix that is now publicly available.
