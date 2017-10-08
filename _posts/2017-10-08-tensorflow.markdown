@@ -2,7 +2,7 @@
 layout: post
 comments: true
 title:  "Tensorflow sucks"
-excerpt: "A nice post"
+excerpt: "A detailed analysis"
 date:   2017-10-08 10:00:00
 mathjax: false
 ---
