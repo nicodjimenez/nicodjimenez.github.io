@@ -1,11 +1,11 @@
 # Site settings
 title: Nico's blog 
-#email: nicodjimenez@gmail.com
+email: nicodjimenez@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
   Coding tutorials, focusing on deep learning and machine learning in general. 
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://nicodjimenez.github.io" # the base hostname & protocol for your site
-#twitter_username: jekyllrb
+twitter_username: nicodjimenez
 github_username:  nicodjimenez
 
 # Build settings
