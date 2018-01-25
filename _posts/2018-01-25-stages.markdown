@@ -1,0 +1,60 @@
+---
+layout: post
+comments: true
+title:  "The 3 stages of commercial AI projects "
+excerpt: "Tools appropriate at each step."
+date:   2018-01-25 10:00:00
+mathjax: false
+---
+
+# Introduction 
+
+It’s 2018 and the AI tooling wars are well underway.  Companies large and small vie to provide pickaxes and jeans for bold miners.  The miners, anxious to extract value from their ores of training data, stare endlessly into their large computer monitors: will they find gold, or will they have to settle on bitcoin?
+
+Tools are a key multiplier on progress, when used appropriately.  When used inappropriately they do the exact opposite.  In this piece we’ll look at the stages all successful commercial AI projects must go through and discuss tooling helpful at each stage. 
+
+# Stage 1: The Struggle 
+
+<img src="/assets/the_struggle.png" width="100px" style="display: block; margin: 0 auto"/>
+
+The initial stage of ML projects is marked by hacks to get something working, anything working, to prove the project has any merit.  Imposing severe limitations on functionality is a helpful tactic here.  Maybe your voice recognition doesn’t deal with noise levels above a certain threshold, your text translation system doesn’t deal with typos, or your self driving system can’t make unprotected left turns.   What good is a complex system if a simple one cannot provide value to users? 
+
+Yahoo got off to a good foot by providing a usable portal to the internet.  Their design _was_ data driven.  Complacency and bad culture was ultimately their downfall (see <http://paulgraham.com/yahoo.html>), but their original design was sound indeed.
+
+When projects are in the struggle stage, the most important thing is to get large labeled datasets.  New services such as ScaleAPI, Crowdflower, and Prodi.gy have sprung up to accelerate this process.  If you have competent UI people on your team and your labeling task is not generic (i.e. it requires training to do correctly), you’re probably best off writing your own annotation interface and getting trained personnel to label your data for you.  In fact, it may be that the less generic your approach to data collection is, the more defensible your business.  
+
+If you’re in the medical imaging field, you may want to book a flight to Mexico to get around federal regulations.
+
+# Stage 2: Improvement Hacks
+
+
+You’ve launched your AI product and are receiving large amounts of data from users.  You will probably find that your assumptions about what your users were going to do with your product are somewhat wrong.  Your home security cameras actually spend more time looking at cats than people, or your voice recognition system was not designed to cope with low fidelity microphones on laptops.  You take your user data, make tweaks to your algorithm, and launch an update.  Nice, things are working slightly better now! The main tool you need at this stage is some way of deploying new models.  There are so many good CI / CD tools available these days that this should be easy.
+
+# Stage 3: The Flywheel Effect
+
+<img src="/assets/flywheel.png" width="500px" style="display: block; margin: 0 auto"/>
+
+
+You gotten good performance, but now you’re trying to go from good to great - in AI this can mean the difference between broken and usable.  You will need to implement systematic engines of improvement on your team.  What’s most important here is the framework of improvement, not relying on any particular new technology to save the day.  Neural network architectures and open source technologies come and go.  The flywheel stays.  Let’s dissect the machine learning flywheel. 
+
+<img src="/assets/flywheel_0.png" width="500px" style="display: block; margin: 0 auto"/>
+
+ Smarter algorithms and a bigger pool of user data means more of your live predictions are good enough to be used as training data.  This means you can skim your top live predictions and feed them into your annotated corpus, with less human effort needed to clean your data.
+
+<img src="/assets/flywheel_1.png" width="230px" style="display: block; margin: 0 auto"/>
+
+ The next key part of the flywheel is as follows: as your AI gains accuracy, your users will trust it more, and will try more advanced things with it.  Your users will try to use your machine translation system to translate Shakespeare into English, or they will use your speech recognition software to extract Kurt Kobain lyrics from Nirvana songs.  They will push the limits of your systems, giving you valuable data you can leverage to push the flywheel further.
+
+The flywheel stage requires high levels of automation.  Here are key tools you’ll want, roughly in order of importance: 
+
+1. *Annotation tool* to quickly enable human annotators to “fix” bugs in production and teach the algorithm new skills.  Do this in house if you have UI talent, otherwise use tools described in the first section of this article.
+2. *Prediction visualization tool* to facilitate qualitative understanding of deficiencies as well as find and remove “bad data”.
+3. Metric monitoring tool to avoid regressions and lower operational cost to perform a large number of experiments and perform model selection.  You can use Tensorboard or Losswise (<https://losswise.com>) for this purpose (disclaimer: my startup Mathpix developed Losswise to cope with features missing from Tensorboard).
+4. *Training script execution tool* that trains model from a `git push origin train/…` action.  This forces your team to version control all your experiments.  It doesn’t matter whether you use your own servers or whether you use AWS, Google Cloud or others, initiating real experiments from `git push` is such a major productivity advantage that there’s no good reason not to use it - other than interactive debugging of course.  At Mathpix we've been using Buildkite (<https://buildkite.com>) for this step and we've found it a pleasure to use.  Machine learning is just a build process in disguise and should be treated as such.
+5. *Versioning for model parameters*. Use `git-lfs` (<https://git-lfs.github.com/>) so that your code and model parameters are versioned together.  Trying out different models should be as easy as `git checkout <branch-name>`.
+
+# Conclusion
+
+We looked at the main stages of AI projects and the tooling appropriate at each step.  In the early stages, focusing on automation is a waste of time as collecting large amounts of high quality training data is paramount.  In the latter stages you will need quite a bit of tooling to accelerate progress. Thoughts on this article, including tooling you found useful in your work but wasn't mentioned here? Please mention it in the comments ;)
+
+
