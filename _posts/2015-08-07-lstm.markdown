@@ -220,5 +220,6 @@ ds = self.state.o * top_diff_h + top_diff_s
 
 The rest of the equations should be straightforward to derive, please let me know if anything is unclear.  
 
+Make sure to check out [Mathpix](https://mathpix.com) if you are a LaTeX user and [Losswise](https://losswise.com) if you need a monitoring solution for training deep learning models.
 
-
+Happy training!
